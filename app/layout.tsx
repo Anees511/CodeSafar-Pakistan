@@ -4,6 +4,7 @@ import Script from "next/script";
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import BackToTop from "@/components/BackToTop";
 import { getAbsoluteUrl, siteConfig } from "@/lib/utils";
 
 import "../styles/globals.css";
@@ -66,7 +67,11 @@ export const metadata: Metadata = {
     images: [getAbsoluteUrl("/images/og-default.png")],
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    apple: "/favicon.ico",
   },
 };
 
@@ -78,7 +83,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${poppins.variable} min-h-screen bg-background font-body text-textPrimary antialiased dark:bg-slate-950 dark:text-slate-100`}
+        className={`${inter.variable} ${poppins.variable} min-h-screen bg-white font-body text-ink-900 antialiased dark:bg-ink-950 dark:text-ink-100`}
       >
         <Script id="theme-init" strategy="beforeInteractive">{`
           (function () {
@@ -97,9 +102,17 @@ export default function RootLayout({
           })();
         `}</Script>
 
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] bg-brand-500 text-white px-4 py-2 rounded-lg font-medium"
+        >
+          Skip to content
+        </a>
+
         <Header />
-        <main>{children}</main>
+        <main id="main">{children}</main>
         <Footer />
+        <BackToTop />
 
         {gaId && gaId !== "G-XXXXXXXXXX" && (
           <>

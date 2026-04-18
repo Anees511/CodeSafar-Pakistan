@@ -12,14 +12,14 @@ export default function BlogGrid({
 }: BlogGridProps) {
   if (!posts.length) {
     return (
-      <div className="rounded-xl border border-dashed border-border bg-surface p-10 text-center text-textMuted dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300">
+      <div className="rounded-2xl border border-dashed border-ink-300 bg-ink-50 p-10 text-center text-ink-500 dark:border-ink-700 dark:bg-ink-900 dark:text-ink-400">
         {emptyMessage}
       </div>
     );
   }
 
   return (
-    <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
+    <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-3 stagger-children">
       {posts.map((post) => (
         <BlogCard key={post.slug} post={post} />
       ))}

@@ -6,6 +6,7 @@ import type {
 
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
@@ -67,7 +68,7 @@ function MdxImage(props: ImgHTMLAttributes<HTMLImageElement>) {
       width={width}
       height={height}
       loading="lazy"
-      className="my-8 rounded-xl border border-border dark:border-slate-700"
+      className="my-8 rounded-xl shadow-md border border-ink-200 dark:border-ink-700"
     />
   );
 }
@@ -78,7 +79,7 @@ function mdxComponents() {
     blockquote: ({ children, ...props }: HTMLAttributes<HTMLElement>) => (
       <blockquote
         {...props}
-        className="my-6 border-l-4 border-primary bg-blue-50/60 px-5 py-3 italic text-slate-700 dark:border-blue-500 dark:bg-blue-950/30 dark:text-slate-200"
+        className="my-6 border-l-4 border-brand-400 bg-brand-50 px-6 py-4 italic text-ink-600 rounded-r-lg dark:border-brand-500 dark:bg-brand-950/30 dark:text-ink-300"
       >
         {children}
       </blockquote>
@@ -92,7 +93,7 @@ function mdxComponents() {
           {...props}
           target={isExternal ? "_blank" : undefined}
           rel={isExternal ? "noopener noreferrer" : undefined}
-          className="font-medium text-primary underline decoration-blue-200 underline-offset-4 hover:text-primaryDark dark:decoration-blue-600"
+          className="font-medium text-brand-500 underline decoration-brand-200 underline-offset-4 transition-colors hover:text-brand-600 hover:decoration-brand-400 dark:decoration-brand-700 dark:hover:decoration-brand-500"
         >
           {children}
         </a>
@@ -110,7 +111,7 @@ function mdxComponents() {
       return (
         <code
           {...props}
-          className="rounded bg-slate-100 px-1.5 py-0.5 text-[0.95em] text-slate-900 dark:bg-slate-800 dark:text-slate-100"
+          className="rounded bg-brand-50 px-1.5 py-0.5 text-[0.9em] font-mono text-brand-700 dark:bg-ink-800 dark:text-brand-300"
         >
           {children}
         </code>
@@ -119,7 +120,7 @@ function mdxComponents() {
     pre: ({ children, ...props }: HTMLAttributes<HTMLPreElement>) => (
       <pre
         {...props}
-        className="not-prose my-6 overflow-x-auto rounded-xl bg-codeBg p-4 text-sm text-slate-100"
+        className="not-prose my-6 overflow-x-auto rounded-xl bg-ink-900 p-4 text-sm text-ink-100 border border-ink-800"
       >
         {children}
       </pre>
@@ -127,7 +128,7 @@ function mdxComponents() {
     h2: ({ children, ...props }: HTMLAttributes<HTMLHeadingElement>) => (
       <h2
         {...props}
-        className="mt-12 scroll-mt-28 font-heading text-3xl font-bold text-slate-900 dark:text-slate-100"
+        className="mt-12 scroll-mt-28 border-l-3 border-brand-500 pl-3 font-heading text-3xl font-bold text-ink-900 dark:text-white"
       >
         {children}
       </h2>
@@ -135,25 +136,25 @@ function mdxComponents() {
     h3: ({ children, ...props }: HTMLAttributes<HTMLHeadingElement>) => (
       <h3
         {...props}
-        className="mt-10 scroll-mt-28 font-heading text-2xl font-semibold text-slate-900 dark:text-slate-100"
+        className="mt-10 scroll-mt-28 font-heading text-2xl font-semibold text-brand-600 dark:text-brand-400"
       >
         {children}
       </h3>
     ),
     p: ({ children, ...props }: HTMLAttributes<HTMLParagraphElement>) => (
-      <p {...props} className="mt-5 leading-8 text-textPrimary dark:text-slate-200">
+      <p {...props} className="mt-5 leading-8 text-ink-700 dark:text-ink-300">
         {children}
       </p>
     ),
     strong: ({ children, ...props }: HTMLAttributes<HTMLElement>) => (
-      <strong {...props} className="font-semibold text-slate-900 dark:text-white">
+      <strong {...props} className="font-semibold text-ink-900 dark:text-white">
         {children}
       </strong>
     ),
     ul: ({ children, ...props }: HTMLAttributes<HTMLUListElement>) => (
       <ul
         {...props}
-        className="my-5 list-disc space-y-2 pl-6 text-textPrimary dark:text-slate-200"
+        className="my-5 list-disc space-y-2 pl-6 text-ink-700 dark:text-ink-300"
       >
         {children}
       </ul>
@@ -161,7 +162,7 @@ function mdxComponents() {
     ol: ({ children, ...props }: HTMLAttributes<HTMLOListElement>) => (
       <ol
         {...props}
-        className="my-5 list-decimal space-y-2 pl-6 text-textPrimary dark:text-slate-200"
+        className="my-5 list-decimal space-y-2 pl-6 text-ink-700 dark:text-ink-300"
       >
         {children}
       </ol>
@@ -265,29 +266,47 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
   return (
     <>
       <ReadingProgress />
+
+      {/* ═══ POST HEADER ═══ */}
+      <section className="relative overflow-hidden bg-ink-950 py-16 md:py-24">
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(168,85,247,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(168,85,247,0.04) 1px, transparent 1px)",
+            backgroundSize: "50px 50px",
+          }}
+        />
+        <div className="pointer-events-none absolute -top-20 right-0 h-[400px] w-[400px] rounded-full bg-brand-500/10 blur-3xl" />
+
+        <div className="relative z-10 mx-auto max-w-4xl px-6">
+          <CategoryBadge category={post.category} />
+          <h1 className="mt-6 font-heading text-3xl font-bold leading-tight text-white md:text-5xl">
+            {post.title}
+          </h1>
+          <p className="mt-4 max-w-3xl text-lg text-ink-400">
+            {post.description}
+          </p>
+          <div className="mt-6 flex flex-wrap items-center gap-3 text-sm text-ink-500">
+            <span>{formatDate(post.date)}</span>
+            <span className="text-ink-700">•</span>
+            <span>{post.readTime}</span>
+            <span className="text-ink-700">•</span>
+            <span>By {post.author}</span>
+            <span className="text-ink-700">•</span>
+            <span>{categoryMeta.name}</span>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ ARTICLE CONTENT ═══ */}
       <article className="mx-auto max-w-7xl px-6 py-16">
         <SEOHead jsonLd={jsonLd} />
 
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_280px]">
           <div>
-            <header className="mb-10 space-y-5">
-              <CategoryBadge category={post.category} />
-              <h1 className="font-heading text-5xl font-bold leading-tight text-textPrimary dark:text-slate-100">
-                {post.title}
-              </h1>
-              <p className="max-w-3xl text-textMuted dark:text-slate-300">
-                {post.description}
-              </p>
-              <div className="flex flex-wrap items-center gap-3 text-sm text-textMuted dark:text-slate-400">
-                <span>{formatDate(post.date)}</span>
-                <span>•</span>
-                <span>{post.readTime}</span>
-                <span>•</span>
-                <span>By {post.author}</span>
-                <span>•</span>
-                <span>{categoryMeta.name}</span>
-              </div>
-            </header>
+            {/* Mobile TOC */}
+            <TableOfContents headings={post.headings} />
 
             <div className="prose prose-slate max-w-none dark:prose-invert">
               <MDXRemote
@@ -297,16 +316,17 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
               />
             </div>
 
-            <section className="mt-12 space-y-8 border-t border-border pt-10 dark:border-slate-800">
+            <section className="mt-12 space-y-10 border-t border-ink-200 pt-10 dark:border-ink-800">
+              {/* Tags */}
               <div>
-                <h2 className="font-heading text-2xl font-semibold text-textPrimary dark:text-slate-100">
+                <h2 className="font-heading text-2xl font-semibold text-ink-900 dark:text-white">
                   Tags
                 </h2>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {post.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium text-textMuted dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"
+                      className="rounded-full border border-ink-300 px-3 py-1 text-xs font-medium text-ink-600 transition-colors hover:border-brand-400 hover:text-brand-500 dark:border-ink-700 dark:text-ink-400 dark:hover:border-brand-500 dark:hover:text-brand-400"
                     >
                       #{tag}
                     </span>
@@ -314,8 +334,9 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
                 </div>
               </div>
 
+              {/* Share */}
               <div>
-                <h2 className="font-heading text-2xl font-semibold text-textPrimary dark:text-slate-100">
+                <h2 className="font-heading text-2xl font-semibold text-ink-900 dark:text-white">
                   Share This Article
                 </h2>
                 <div className="mt-4">
@@ -323,16 +344,18 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
                 </div>
               </div>
 
-              <div className="rounded-xl border border-border bg-surface p-6 dark:border-slate-800 dark:bg-slate-900">
-                <div className="flex items-center gap-4">
-                  <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary text-sm font-semibold text-white">
+              {/* Author card */}
+              <div className="relative overflow-hidden rounded-2xl border border-brand-500/20 bg-ink-950 p-6">
+                <div className="absolute inset-0 bg-gradient-to-br from-brand-500/5 to-indigo-500/5" />
+                <div className="relative z-10 flex items-center gap-4">
+                  <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-500 to-indigo-500 text-base font-bold text-white">
                     {authorInitials}
                   </div>
                   <div>
-                    <p className="font-heading text-lg font-semibold text-textPrimary dark:text-slate-100">
+                    <p className="font-heading text-lg font-semibold text-white">
                       {post.author}
                     </p>
-                    <p className="text-sm text-textMuted dark:text-slate-300">
+                    <p className="mt-1 text-sm text-ink-400">
                       Developer and educator helping Pakistani students build practical tech careers.
                     </p>
                   </div>
@@ -341,21 +364,28 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
               <RelatedPosts posts={relatedPosts} />
 
-              <section className="rounded-xl bg-primary px-6 py-8 text-white">
-                <h2 className="font-heading text-3xl font-bold">
-                  Get articles delivered to your inbox
-                </h2>
-                <p className="mt-3 text-blue-100">
-                  No spam. Just practical tech content for students.
-                </p>
-                <div className="mt-6">
-                  <NewsletterForm compact />
+              {/* Newsletter */}
+              <section className="relative overflow-hidden rounded-2xl bg-ink-950 px-6 py-10">
+                <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 h-[200px] w-[300px] rounded-full bg-brand-500/10 blur-3xl" />
+                <div className="relative z-10 text-center">
+                  <h2 className="font-heading text-3xl font-bold">
+                    <span className="gradient-text">Get articles delivered</span>
+                    <br />
+                    <span className="text-white">to your inbox</span>
+                  </h2>
+                  <p className="mt-3 text-ink-400">
+                    No spam. Just practical tech content for students.
+                  </p>
+                  <div className="mt-6">
+                    <NewsletterForm compact />
+                  </div>
                 </div>
               </section>
             </section>
           </div>
 
-          <div>
+          {/* Desktop TOC */}
+          <div className="hidden lg:block">
             <TableOfContents headings={post.headings} />
           </div>
         </div>
