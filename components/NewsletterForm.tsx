@@ -60,7 +60,7 @@ export default function NewsletterForm({ compact = false }: NewsletterFormProps)
       </label>
       <div className="flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1">
-          <Mail className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-textMuted dark:text-slate-400" />
+          <Mail className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-ink-400" />
           <input
             id="newsletter-email"
             type="email"
@@ -68,28 +68,28 @@ export default function NewsletterForm({ compact = false }: NewsletterFormProps)
             onChange={(event) => setEmail(event.target.value)}
             placeholder="Enter your email"
             required
-            className="h-12 w-full rounded-full border border-border bg-white pl-12 pr-4 text-base text-textPrimary outline-none ring-primary transition focus:ring-2 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+            className="h-12 w-full rounded-full border border-ink-700 bg-ink-800 pl-12 pr-4 text-base text-white placeholder:text-ink-500 outline-none ring-brand-500 transition focus:ring-2 focus:border-brand-500"
           />
         </div>
         <button
           type="submit"
           disabled={isSubmitting}
-          className="h-12 rounded-full bg-primary px-6 text-sm font-semibold text-white transition hover:bg-primaryDark disabled:cursor-not-allowed disabled:opacity-70"
+          className="h-12 rounded-full bg-gradient-to-r from-brand-500 to-indigo-500 px-6 text-sm font-semibold text-white transition-all duration-200 hover:from-brand-600 hover:to-indigo-600 hover:scale-[1.03] hover:shadow-lg hover:shadow-brand-500/25 disabled:cursor-not-allowed disabled:opacity-70"
         >
           {isSubmitting ? "Subscribing..." : "Subscribe"}
         </button>
       </div>
 
-      <p className="mt-3 text-sm text-blue-100 dark:text-slate-300">
+      <p className="mt-3 text-sm text-ink-400">
         No spam. Just practical tech content for students.
       </p>
       {status === "success" && (
-        <p className="mt-2 text-sm text-emerald-200">
-          You are subscribed. We will notify you when a new article is published.
+        <p className="mt-2 text-sm text-accent-400">
+          ✓ You are subscribed. We will notify you when a new article is published.
         </p>
       )}
       {status === "error" && (
-        <p className="mt-2 text-sm text-rose-200">
+        <p className="mt-2 text-sm text-rose-400">
           Subscription failed. Please try again.
         </p>
       )}
