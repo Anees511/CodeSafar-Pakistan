@@ -63,18 +63,19 @@ export default function BlogListingClient({ posts }: BlogListingClientProps) {
     <>
       <header className="mb-10 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="font-heading text-5xl font-bold text-textPrimary dark:text-slate-100">
+          <h1 className="font-heading text-5xl font-bold text-ink-900 dark:text-white">
             All Articles
           </h1>
-          <p className="mt-3 text-textMuted dark:text-slate-300">
+          <div className="mt-2 h-1 w-12 rounded-full bg-gradient-to-r from-brand-500 to-indigo-500" />
+          <p className="mt-4 text-ink-500 dark:text-ink-400">
             {filteredPosts.length} post{filteredPosts.length === 1 ? "" : "s"}
             {selectedCategory !== "all" ? " in this category" : ""}
           </p>
         </div>
       </header>
 
-      <section className="mb-10 rounded-xl border border-border bg-surface p-4 dark:border-slate-800 dark:bg-slate-900">
-        <p className="mb-4 text-sm font-semibold uppercase tracking-[0.12em] text-textMuted dark:text-slate-400">
+      <section className="mb-10 rounded-2xl border border-ink-200 bg-ink-50 p-5 dark:border-ink-800 dark:bg-ink-900">
+        <p className="mb-4 text-sm font-semibold uppercase tracking-wider text-ink-500 dark:text-ink-400">
           Filter by Category
         </p>
         <div className="flex flex-wrap gap-3">
@@ -85,10 +86,10 @@ export default function BlogListingClient({ posts }: BlogListingClientProps) {
               <Link
                 key={option.slug}
                 href={buildBlogUrl(option.slug, 1)}
-                className={`rounded-full border px-4 py-2 text-sm font-medium transition ${
+                className={`rounded-full border px-4 py-2 text-sm font-medium transition-all duration-200 ${
                   isActive
-                    ? "border-primary bg-primary text-white"
-                    : "border-border bg-white text-textPrimary hover:border-primary hover:text-primary dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200"
+                    ? "border-brand-500 bg-brand-500 text-white shadow-md shadow-brand-500/20"
+                    : "border-ink-200 bg-white text-ink-700 hover:border-brand-400 hover:text-brand-600 dark:border-ink-700 dark:bg-ink-800 dark:text-ink-300 dark:hover:border-brand-500 dark:hover:text-brand-400"
                 }`}
               >
                 {option.label}
@@ -103,33 +104,33 @@ export default function BlogListingClient({ posts }: BlogListingClientProps) {
         emptyMessage="No posts found for this category yet. Please check another category."
       />
 
-      <section className="mt-10 flex items-center justify-between rounded-xl border border-border bg-surface p-5 dark:border-slate-800 dark:bg-slate-900">
+      <section className="mt-10 flex items-center justify-between rounded-2xl border border-ink-200 bg-ink-50 p-5 dark:border-ink-800 dark:bg-ink-900">
         {currentPage > 1 ? (
           <Link
             href={buildBlogUrl(selectedCategory, currentPage - 1)}
-            className="rounded-full border border-border px-4 py-2 text-sm font-medium text-textPrimary transition hover:border-primary hover:text-primary dark:border-slate-700 dark:text-slate-200"
+            className="rounded-full border border-ink-200 px-4 py-2 text-sm font-medium text-ink-700 transition-all duration-200 hover:border-brand-400 hover:text-brand-500 dark:border-ink-700 dark:text-ink-300"
           >
             Previous
           </Link>
         ) : (
-          <span className="rounded-full border border-border px-4 py-2 text-sm text-textMuted dark:border-slate-700 dark:text-slate-500">
+          <span className="rounded-full border border-ink-200 px-4 py-2 text-sm text-ink-400 dark:border-ink-700 dark:text-ink-600">
             Previous
           </span>
         )}
 
-        <p className="text-sm text-textMuted dark:text-slate-400">
+        <p className="text-sm text-ink-500 dark:text-ink-400">
           Page {currentPage} of {totalPages}
         </p>
 
         {currentPage < totalPages ? (
           <Link
             href={buildBlogUrl(selectedCategory, currentPage + 1)}
-            className="rounded-full border border-border px-4 py-2 text-sm font-medium text-textPrimary transition hover:border-primary hover:text-primary dark:border-slate-700 dark:text-slate-200"
+            className="rounded-full border border-ink-200 px-4 py-2 text-sm font-medium text-ink-700 transition-all duration-200 hover:border-brand-400 hover:text-brand-500 dark:border-ink-700 dark:text-ink-300"
           >
             Next
           </Link>
         ) : (
-          <span className="rounded-full border border-border px-4 py-2 text-sm text-textMuted dark:border-slate-700 dark:text-slate-500">
+          <span className="rounded-full border border-ink-200 px-4 py-2 text-sm text-ink-400 dark:border-ink-700 dark:text-ink-600">
             Next
           </span>
         )}
