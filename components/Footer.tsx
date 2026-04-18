@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Globe, ExternalLink, Send } from "lucide-react";
 
 import { CATEGORIES } from "@/lib/types";
 import { siteConfig } from "@/lib/utils";
@@ -11,24 +12,63 @@ const quickLinks = [
   { href: "/start-here", label: "Start Here" },
 ];
 
+const socialLinks = [
+  { href: "https://github.com/Anees040", label: "GitHub", icon: Globe },
+  { href: "https://linkedin.com", label: "LinkedIn", icon: ExternalLink },
+  { href: "https://twitter.com", label: "Twitter", icon: Send },
+];
+
 export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="mt-24 bg-slate-900 text-white">
-      <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-3">
+    <footer className="relative mt-24 border-t border-brand-500/20 bg-ink-950 text-white noise-texture">
+      <div className="relative z-10 mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-3">
         <div>
-          <h3 className="font-heading text-2xl font-bold">{siteConfig.name}</h3>
-          <p className="mt-4 text-slate-300">{siteConfig.tagline}</p>
-          <p className="mt-3 text-sm text-slate-400">Made for Pakistani students</p>
+          <div className="flex items-center gap-2.5">
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-brand-500 to-indigo-500 text-[11px] font-extrabold text-white">
+              CS
+            </div>
+            <span className="font-heading text-lg font-bold">
+              <span className="gradient-text">CodeSafar</span>
+            </span>
+          </div>
+          <p className="mt-4 text-ink-300">{siteConfig.tagline}</p>
+          <p className="mt-3 text-sm text-ink-500">
+            🇵🇰 Made for Pakistani students
+          </p>
+
+          {/* Social links */}
+          <div className="mt-6 flex items-center gap-3">
+            {socialLinks.map((link) => {
+              const Icon = link.icon;
+              return (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={link.label}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-ink-800 text-ink-400 transition-all duration-200 hover:border-brand-500 hover:text-brand-400 hover:scale-110"
+                >
+                  <Icon className="h-4 w-4" />
+                </a>
+              );
+            })}
+          </div>
         </div>
 
         <div>
-          <h4 className="font-heading text-lg font-semibold">Quick Links</h4>
-          <ul className="mt-4 space-y-3 text-slate-300">
+          <h4 className="font-heading text-lg font-semibold text-white">
+            Quick Links
+          </h4>
+          <ul className="mt-4 space-y-3 text-ink-400">
             {quickLinks.map((link) => (
               <li key={link.href}>
-                <Link href={link.href} className="transition-colors hover:text-white">
+                <Link
+                  href={link.href}
+                  className="transition-colors duration-200 hover:text-brand-400"
+                >
                   {link.label}
                 </Link>
               </li>
@@ -37,13 +77,15 @@ export default function Footer() {
         </div>
 
         <div>
-          <h4 className="font-heading text-lg font-semibold">Categories</h4>
-          <ul className="mt-4 space-y-3 text-slate-300">
+          <h4 className="font-heading text-lg font-semibold text-white">
+            Categories
+          </h4>
+          <ul className="mt-4 space-y-3 text-ink-400">
             {CATEGORIES.map((category) => (
               <li key={category.slug}>
                 <Link
                   href={`/category/${category.slug}`}
-                  className="transition-colors hover:text-white"
+                  className="transition-colors duration-200 hover:text-brand-400"
                 >
                   {category.name}
                 </Link>
@@ -53,10 +95,12 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-slate-800">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 py-5 text-sm text-slate-400 md:flex-row">
-          <p>Copyright {year} {siteConfig.name}. All rights reserved.</p>
-          <p>Built with Next.js and ❤️ in Pakistan</p>
+      <div className="relative z-10 border-t border-ink-800">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 py-5 text-sm text-ink-500 md:flex-row">
+          <p>
+            © {year} {siteConfig.name}. All rights reserved.
+          </p>
+          <p>Crafted with ☕ and late nights in Pakistan 🇵🇰</p>
         </div>
       </div>
     </footer>
